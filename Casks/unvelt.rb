@@ -1,6 +1,6 @@
 cask "unvelt" do
-  version "0.3.0"
-  sha256 "e932a0c02d145680398bcf52bead9428b88f61f5f01b860bc676c1a9aa198b9c"
+  version "0.3.2"
+  sha256 "6bd4f653238e2ea21dcc4c0d42b2d69e50a75d92a676ab4f9594730c6270581e"
 
   url "https://github.com/unvelt/unvelt-desktop/releases/download/v#{version}/unvelt_#{version}_aarch64.dmg",
       verified: "github.com/unvelt/unvelt-desktop/"
@@ -20,6 +20,15 @@ cask "unvelt" do
   # download that 404s on an Intel Mac and blames the network.
   depends_on arch: :arm64
   depends_on macos: ">= :sonoma"
+  # ungive/media-control is how a Mac sees what is playing in a browser tab.
+  # Since macOS 15.4, MediaRemote answers only Apple-signed callers, so a
+  # normal app gets nothing -- media-control reaches it through a code-signing
+  # loophole in /usr/bin/perl that is Apple's to close. unvelt ships none of
+  # that technique; it shells out to this tool when present and falls back to
+  # Spotify/Music-only otherwise. Declaring it here means a brew install
+  # collects browser tracks out of the box. It is in homebrew-core, so this is
+  # an ordinary formula dependency, not another tap.
+  depends_on formula: "media-control"
 
   app "unvelt.app"
 
@@ -59,17 +68,19 @@ cask "unvelt" do
     macOS puts on downloads. Without that, Gatekeeper would refuse to open it
     and Sequoia no longer offers the Control-click bypass.
 
-    Two things worth knowing before you grant anything:
+    Worth knowing before you grant anything:
 
       * macOS ties Accessibility and Automation permissions to an app's code
         signature, and an unsigned app has a new one after every build. You
         will be asked again after each update until unvelt is signed.
       * Notifications need Full Disk Access, which macOS will ask you for the
         first time you turn them on.
-      * Music and video covers Spotify and Music, with the track name. It
-        cannot name what is playing in a browser tab: macOS has no public API
-        for that and the private one is entitlement-gated. Browser audio is
-        still counted, as time an app spent making sound.
+      * Music and video covers Spotify and Music, and -- through the
+        media-control tool installed alongside this -- what is playing in a
+        browser tab too, with the track name. If Apple closes the loophole
+        media-control relies on, that quietly narrows back to Spotify and
+        Music; browser audio is still counted as time an app spent making
+        sound either way.
       * Headsets and other audio devices are not tracked on macOS yet. Windows
         reports them; this build does not.
 
