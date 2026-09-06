@@ -1,6 +1,6 @@
 cask "unvelt" do
-  version "0.1.0"
-  sha256 "65b38e69adb01152548f700b66f3e626d31bf4320e163774a7ecbdbbda265cb2"
+  version "0.1.1"
+  sha256 "d3dbbf61d992ce3f6778e3a8d4b5d7906a1913126f688dc58b5e345e2ace7223"
 
   url "https://github.com/unvelt/unvelt-desktop/releases/download/v#{version}/unvelt_#{version}_aarch64.dmg",
       verified: "github.com/unvelt/unvelt-desktop/"
