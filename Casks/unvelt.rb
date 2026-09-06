@@ -1,6 +1,6 @@
 cask "unvelt" do
-  version "0.2.0"
-  sha256 "50b4487cd441cdcde0d3d812297d2b2172e784fa18af9a1c912a81734f61f2ec"
+  version "0.3.0"
+  sha256 "e932a0c02d145680398bcf52bead9428b88f61f5f01b860bc676c1a9aa198b9c"
 
   url "https://github.com/unvelt/unvelt-desktop/releases/download/v#{version}/unvelt_#{version}_aarch64.dmg",
       verified: "github.com/unvelt/unvelt-desktop/"
@@ -64,8 +64,14 @@ cask "unvelt" do
       * macOS ties Accessibility and Automation permissions to an app's code
         signature, and an unsigned app has a new one after every build. You
         will be asked again after each update until unvelt is signed.
-      * Notifications and media are not collected on macOS yet. The switches
-        for them appear in the window marked "not yet", and they mean it.
+      * Notifications need Full Disk Access, which macOS will ask you for the
+        first time you turn them on.
+      * Music and video covers Spotify and Music, with the track name. It
+        cannot name what is playing in a browser tab: macOS has no public API
+        for that and the private one is entitlement-gated. Browser audio is
+        still counted, as time an app spent making sound.
+      * Headsets and other audio devices are not tracked on macOS yet. Windows
+        reports them; this build does not.
 
     Nothing is collected until you sign in and choose what to turn on.
   EOS
