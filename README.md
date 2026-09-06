@@ -4,8 +4,18 @@ The Homebrew tap for [unvelt](https://github.com/unvelt/unvelt-desktop).
 
 ```sh
 brew tap unvelt/tap
+brew trust unvelt/tap      # see below
 brew install --cask unvelt
 ```
+
+## Why `brew trust` is needed
+
+The cask runs a command during install (`xattr`, to clear the quarantine flag
+-- see below), and Homebrew will not run arbitrary commands from a third-party
+tap without being told to. That prompt is doing its job: a tap that can run
+commands on install can run any command, so trusting one should be a decision
+rather than a default. This one is ours, and the only thing it runs is the
+`xattr` call in `Casks/unvelt.rb`, which you can read before agreeing.
 
 ## Why a tap and not the main Homebrew repo
 
