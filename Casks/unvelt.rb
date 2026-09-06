@@ -1,6 +1,6 @@
 cask "unvelt" do
-  version "0.3.2"
-  sha256 "6bd4f653238e2ea21dcc4c0d42b2d69e50a75d92a676ab4f9594730c6270581e"
+  version "0.3.3"
+  sha256 "50b6c20226edf0ddbae253bc28c64cb820e27a247476791b6abf5ed18d4ef549"
 
   url "https://github.com/unvelt/unvelt-desktop/releases/download/v#{version}/unvelt_#{version}_aarch64.dmg",
       verified: "github.com/unvelt/unvelt-desktop/"
@@ -73,6 +73,10 @@ cask "unvelt" do
       * macOS ties Accessibility and Automation permissions to an app's code
         signature, and an unsigned app has a new one after every build. You
         will be asked again after each update until unvelt is signed.
+      * The microphone grant is requested at first launch. unvelt reads Core
+        Audio's per-process in-use flags -- which app is using the mic, so a
+        call reads as a call -- and never records. Without the grant macOS
+        shows no mic activity at all.
       * Notifications need Full Disk Access, which macOS will ask you for the
         first time you turn them on.
       * Music and video covers Spotify and Music, and -- through the
