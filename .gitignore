@@ -1,0 +1,31 @@
+# Private data and generated artifacts
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.env.*
+*.env
+!.env.example
+*.pem
+*.key
+*.keystore
+*.jks
+service-account*.json
+service_account*.json
+*credentials*.json
+*.db
+*.sqlite*
+*.log
+*.jsonl
+*.aab
+*.apk
+**/build/
+dist/
+node_modules/
+research-data/
+marketing-data/
+
+# Machine-local Claude settings and telemetry restore state
+.claude/settings.local*.json
