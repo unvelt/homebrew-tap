@@ -1,13 +1,13 @@
 cask "unvelt" do
-  version "0.4.0"
-  sha256 "86aa5b63d0068e9e834cef4734beb5c642a686eb914ba5aaf427bf986f154d5e"
+  version "0.4.1"
+  sha256 "4783f82500cb94e51760d0b23b9d26c4fc0d2a56f5205aadef62eb91b006e0c3"
 
-  url "https://github.com/unvelt/unvelt-desktop/releases/download/v#{version}/unvelt_#{version}_aarch64.dmg",
-      verified: "github.com/unvelt/unvelt-desktop/"
+  url "https://github.com/unvelt/unvelt-dist/releases/download/v#{version}/unvelt_#{version}_aarch64.dmg",
+      verified: "github.com/unvelt/unvelt-dist/"
 
   name "unvelt"
   desc "Behavioural telemetry collector for your own data"
-  homepage "https://github.com/unvelt/unvelt-desktop"
+  homepage "https://github.com/unvelt/unvelt-dist"
 
   livecheck do
     url :url
