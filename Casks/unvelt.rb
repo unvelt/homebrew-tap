@@ -1,8 +1,8 @@
 cask "unvelt" do
-  version "0.4.3"
-  sha256 "3dcdd11f03333de4cc9d8aca0a3d775dce89088266d74215078f072ed00f5af3"
+  version "0.4.4"
+  sha256 "5d289b010c6bc8027ea5eec6516203b2bdfb713c84b7a51161958856c235fabe"
 
-  url "https://github.com/unvelt/unvelt-dist/releases/download/v#{version}/unvelt_#{version}_aarch64.dmg",
+  url "https://github.com/unvelt/unvelt-dist/releases/download/v#{version}/unvelt_#{version}_universal.dmg",
       verified: "github.com/unvelt/unvelt-dist/"
 
   name "unvelt"
@@ -15,10 +15,6 @@ cask "unvelt" do
   end
 
   auto_updates false
-  # Apple Silicon only, because that is the only macOS build that exists --
-  # the Intel runner never got scheduled in CI. Declaring it is better than a
-  # download that 404s on an Intel Mac and blames the network.
-  depends_on arch: :arm64
   depends_on macos: ">= :sonoma"
   # ungive/media-control is how a Mac sees what is playing in a browser tab.
   # Since macOS 15.4, MediaRemote answers only Apple-signed callers, so a
