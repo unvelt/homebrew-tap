@@ -1,6 +1,6 @@
 cask "unvelt" do
-  version "0.4.5"
-  sha256 "b14df98f3414f2a6f4e4cc3b129f92685e5e1eda9010e9e02cda3bbd54b8dd26"
+  version "0.4.7"
+  sha256 "0c4ab945943dff29aae773c33afcf6e64dc563939826737e8f6a183ba07abdb2"
 
   url "https://github.com/unvelt/unvelt-dist/releases/download/v#{version}/unvelt_#{version}_universal.dmg",
       verified: "github.com/unvelt/unvelt-dist/"
@@ -66,9 +66,8 @@ cask "unvelt" do
 
     Worth knowing before you grant anything:
 
-      * macOS ties Accessibility and Automation permissions to an app's code
-        signature, and an unsigned app has a new one after every build. You
-        will be asked again after each update until unvelt is signed.
+      * If macOS asks again for Accessibility or Automation after an update,
+        allow it again in System Settings > Privacy & Security.
       * The microphone grant is requested at first launch. unvelt reads Core
         Audio's per-process in-use flags -- which app is using the mic, so a
         call reads as a call -- and never records. Without the grant macOS
@@ -84,6 +83,7 @@ cask "unvelt" do
       * Headsets and other audio devices are not tracked on macOS yet. Windows
         reports them; this build does not.
 
-    Nothing is collected until you sign in and choose what to turn on.
+    Nothing is recorded until this Mac is linked to your account and you
+    choose what it records.
   EOS
 end

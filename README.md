@@ -38,7 +38,6 @@ does it in `postflight` instead, which keeps working.
 
 ## What is not solved
 
-Every update re-asks for Accessibility, Automation and Screen Recording
-permissions. macOS keys those grants to the code signature, and an unsigned
-app has a different one after every build. That is the accepted cost of
-shipping at $0; buying the Apple Developer Program is what ends it.
+macOS may ask again for Accessibility, Automation or Screen Recording after
+an update. Whether it keeps those grants across updates hasn't been measured
+yet. If it asks, allow it again in System Settings > Privacy & Security.
