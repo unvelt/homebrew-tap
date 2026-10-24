@@ -14,7 +14,11 @@ cask "unvelt" do
     strategy :github_latest
   end
 
-  auto_updates false
+  # unvelt updates itself on macOS: the app checks on start and every 6 h, and
+  # the new version swaps in at the next start. Declaring that stops
+  # `brew upgrade` reinstalling an older dmg over a newer bundle. It also
+  # means a deliberate upgrade needs `--greedy`.
+  auto_updates true
   depends_on macos: ">= :sonoma"
   # ungive/media-control is how a Mac sees what is playing in a browser tab.
   # Since macOS 15.4, MediaRemote answers only Apple-signed callers, so a
@@ -68,6 +72,9 @@ cask "unvelt" do
 
       * If macOS asks again for Accessibility or Automation after an update,
         allow it again in System Settings > Privacy & Security.
+      * unvelt updates itself, so `brew upgrade --cask unvelt` will say
+        there is nothing to do. To update through Homebrew anyway, add
+        `--greedy`.
       * The microphone grant is requested at first launch. unvelt reads Core
         Audio's per-process in-use flags -- which app is using the mic, so a
         call reads as a call -- and never records. Without the grant macOS
