@@ -6,8 +6,8 @@ cask "unvelt" do
       verified: "github.com/unvelt/unvelt-dist/"
 
   name "unvelt"
-  desc "Behavioural telemetry collector for your own data"
-  homepage "https://github.com/unvelt/unvelt-dist"
+  desc "Private record of your own computer activity"
+  homepage "https://unvelt.co/"
 
   livecheck do
     url :url
@@ -20,23 +20,20 @@ cask "unvelt" do
   # means a deliberate upgrade needs `--greedy`.
   auto_updates true
   depends_on macos: ">= :sonoma"
-  # ungive/media-control is how a Mac sees what is playing in a browser tab.
-  # Since macOS 15.4, MediaRemote answers only Apple-signed callers, so a
-  # normal app gets nothing -- media-control reaches it through a code-signing
-  # loophole in /usr/bin/perl that is Apple's to close. unvelt ships none of
-  # that technique; it shells out to this tool when present and falls back to
-  # Spotify/Music-only otherwise. Declaring it here means a brew install
-  # collects browser tracks out of the box. It is in homebrew-core, so this is
-  # an ordinary formula dependency, not another tap.
+  # How a Mac sees what is playing in a browser tab. unvelt shells out to this
+  # tool when it is present and covers the music apps alone otherwise, so
+  # declaring it means a brew install sees browser audio out of the box. It is
+  # in homebrew-core, so this is an ordinary formula dependency, not another
+  # tap.
   depends_on formula: "media-control"
 
   app "unvelt.app"
 
-  # unvelt is unsigned: no Apple Developer certificate, because this project
-  # has no revenue and one costs $99/yr. macOS attaches com.apple.quarantine
-  # to anything downloaded and Gatekeeper refuses to open an unsigned app that
-  # carries it -- and Sequoia removed the Control-click bypass, so without this
-  # the install ends at a dialog with no obvious way past it.
+  # unvelt is signed with its own certificate and is not notarized by Apple.
+  # macOS attaches com.apple.quarantine to anything downloaded, and Gatekeeper
+  # refuses to open a quarantined app that it cannot check with Apple -- and
+  # Sequoia removed the Control-click bypass, so without this the install ends
+  # at a dialog with no obvious way past it.
   #
   # Clearing the flag as part of an install the person explicitly asked for is
   # the honest version of what they would otherwise do by hand. It is said out
@@ -64,9 +61,8 @@ cask "unvelt" do
   ]
 
   caveats <<~EOS
-    unvelt is not signed by Apple, so this cask cleared the quarantine flag
-    macOS puts on downloads. Without that, Gatekeeper would refuse to open it
-    and Sequoia no longer offers the Control-click bypass.
+    macOS puts a quarantine flag on anything downloaded, and this cask clears
+    it as part of the install so the app will open.
 
     Worth knowing before you grant anything:
 
@@ -75,20 +71,15 @@ cask "unvelt" do
       * unvelt updates itself, so `brew upgrade --cask unvelt` will say
         there is nothing to do. To update through Homebrew anyway, add
         `--greedy`.
-      * The microphone grant is requested at first launch. unvelt reads Core
-        Audio's per-process in-use flags -- which app is using the mic, so a
-        call reads as a call -- and never records. Without the grant macOS
-        shows no mic activity at all.
+      * The microphone grant is asked for at first launch. unvelt records
+        which app is using the microphone, never any audio. Without the grant
+        it sees no microphone activity at all.
       * Notifications need Full Disk Access, which macOS will ask you for the
         first time you turn them on.
-      * Music and video covers Spotify and Music, and -- through the
-        media-control tool installed alongside this -- what is playing in a
-        browser tab too, with the track name. If Apple closes the loophole
-        media-control relies on, that quietly narrows back to Spotify and
-        Music; browser audio is still counted as time an app spent making
-        sound either way.
-      * Headsets and other audio devices are not tracked on macOS yet. Windows
-        reports them; this build does not.
+      * Music and video covers your music apps, and what is playing in a
+        browser tab when the companion tool installed alongside this is
+        present.
+      * Headsets and other audio devices are not recorded on macOS yet.
 
     Nothing is recorded until this Mac is linked to your account and you
     choose what it records.
